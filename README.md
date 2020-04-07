@@ -1,44 +1,32 @@
-# ZongJi [![Build Status](https://travis-ci.org/nevill/zongji.svg?branch=master)](https://travis-ci.org/nevill/zongji)
+# ZongJi [![Build Status](https://travis-ci.org/adi/mysqlrepl.svg?branch=master)](https://travis-ci.org/adi/mysqlrepl)
 A MySQL binlog listener running on Node.js.
 
-ZongJi (踪迹) is pronounced as `zōng jì` in Chinese.
-
 This package is a pure JS implementation based on [`mysql`](https://github.com/mysqljs/mysql). It has been tested to work in MySQL 5.5, 5.6, and 5.7.
-
-# Latest Release
-
-The latest release is v0.5.0, only supports Node.js from v8.
-
-v0.4.7 is the last release which supports Node.js v4.x.
 
 ## Quick Start
 
 ```javascript
-let zongji = new ZongJi({ /* ... MySQL Connection Settings ... */ });
+let mysqlrepl = new MysqlRepl({ /* ... MySQL Connection Settings ... */ });
 
 // Each change to the replication log results in an event
-zongji.on('binlog', function(evt) {
-  evt.dump();
+mysqlrepl.on('binlog', function(event) {
+  event.dump();
 });
 
 // Binlog must be started, optionally pass in filters
-zongji.start({
+mysqlrepl.start({
   includeEvents: ['tablemap', 'writerows', 'updaterows', 'deleterows']
 });
 ```
-
-For a complete implementation see [`example.js`](example.js)...
-
 ## Installation
 
 * Requires Node.js v8+
 
   ```bash
-  $ npm install zongji
+  $ npm install mysqlrepl
   ```
 
-* Enable MySQL binlog in `my.cnf`, restart MySQL server after making the changes.
-  > From [MySQL 5.6](https://dev.mysql.com/doc/refman/5.6/en/replication-options-binary-log.html), binlog checksum is enabled by default. Zongji can work with it, but it doesn't really verify it.
+* Enable MySQL binlog of type row in `my.cnf`, restart MySQL server after making the changes.
 
   ```
   # Must be unique integer from 1-2^32
@@ -140,8 +128,6 @@ Name   | Description
 * run `docker-compose up` and then `./docker-test.sh`
 
 ## Reference
-
-I learnt many things from following resources while making ZongJi.
 
 * https://github.com/mysqljs/mysql
 * https://github.com/felixge/faster-than-c/
