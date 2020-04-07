@@ -31,7 +31,7 @@ mysqlrepl.start({
   ```
   # Must be unique integer from 1-2^32
   server-id        = 1
-  # Row format required for ZongJi
+  # Row format required for MysqlRepl
   binlog_format    = row
   # Directory must exist. This path works for Linux. Other OS may require
   #   different path.
@@ -41,22 +41,22 @@ mysqlrepl.start({
   expire_logs_days = 10          # Optional, purge old logs
   max_binlog_size  = 100M        # Optional, limit log size
   ```
-* Create an account with replication privileges, e.g. given privileges to account `zongji` (or any account that you use to read binary logs)
+* Create an account with replication privileges, e.g. given privileges to account `mysqlrepl` (or any account that you use to read binary logs)
 
   ```sql
-  GRANT REPLICATION SLAVE, REPLICATION CLIENT, SELECT ON *.* TO 'zongji'@'localhost'
+  GRANT REPLICATION SLAVE, REPLICATION CLIENT, SELECT ON *.* TO 'mysqlrepl'@'localhost'
   ```
 
-## ZongJi Class
+## MysqlRepl Class
 
-The `ZongJi` constructor accepts one argument of either:
+The `MysqlRepl` constructor accepts one argument of either:
 
 * An object containing MySQL connection details in the same format as used by [package mysql](https://npm.im/mysql)
 * Or, a [mysql](https://npm.im/mysql) `Connection` or `Pool` object that will be used for querying column information.
 
-If a `Connection` or `Pool` object is passed to the constructor, it will not be destroyed/ended by Zongji's `stop()` method.
+If a `Connection` or `Pool` object is passed to the constructor, it will not be destroyed/ended by MysqlRepl's `stop()` method.
 
-If there is a `dateStrings` `mysql` configuration option in the connection details or connection, `ZongJi` will follow it.
+If there is a `dateStrings` `mysql` configuration option in the connection details or connection, `MysqlRepl` will follow it.
 
 Each instance includes the following methods:
 
@@ -70,17 +70,17 @@ Some events can be emitted in different phases:
 
 Event Name | Description
 -----------|------------------------
-`ready`    | This event is occurred right after ZongJi successfully established a connection, setup slave status, and set binlog position.
+`ready`    | This event is occurred right after MysqlRepl successfully established a connection, setup slave status, and set binlog position.
 `binlog`   | Once a binlog is received and passes the filter, it will bubble up with this event.
 `error`    | Every error will be caught by this event.
-`stopped`  | Emitted when ZongJi connection is stopped (ZongJi#stop is called).
+`stopped`  | Emitted when MysqlRepl connection is stopped (MysqlRepl#stop is called).
 
 **Options available:**
 
 Option Name | Type | Description
 ------------|------|-------------------------------
-`serverId`  | `integer` | [Unique number (1 - 2<sup>32</sup>)](http://dev.mysql.com/doc/refman/5.0/en/replication-options.html#option_mysqld_server-id) to identify this replication slave instance. Must be specified if running more than one instance of ZongJi. Must be used in `start()` method for effect.<br>**Default:** `1`
-`startAtEnd` | `boolean` | Pass `true` to only emit binlog events that occur after ZongJi's instantiation. Must be used in `start()` method for effect.<br>**Default:** `false`
+`serverId`  | `integer` | [Unique number (1 - 2<sup>32</sup>)](http://dev.mysql.com/doc/refman/5.0/en/replication-options.html#option_mysqld_server-id) to identify this replication slave instance. Must be specified if running more than one instance of MysqlRepl. Must be used in `start()` method for effect.<br>**Default:** `1`
+`startAtEnd` | `boolean` | Pass `true` to only emit binlog events that occur after MysqlRepl's instantiation. Must be used in `start()` method for effect.<br>**Default:** `false`
 `filename` | `string` | Begin reading events from this binlog file. If specified together with `position`, will take precedence over `startAtEnd`.
 `position` | `integer` | Begin reading events from this position. Must be included with `filename`.
 `includeEvents` | `[string]` | Array of event names to include<br>**Example:** `['writerows', 'updaterows', 'deleterows']`
