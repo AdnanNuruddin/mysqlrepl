@@ -20,7 +20,7 @@ mysqlrepl.start({
 ```
 ## Installation
 
-* Requires Node.js v8+
+* Requires Node.js v12+
 
   ```bash
   $ npm install mysqlrepl
