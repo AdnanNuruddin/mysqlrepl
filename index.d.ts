@@ -2,7 +2,7 @@ declare module 'mysqlrepl' {
 
     import { ConnectionConfig } from 'mysql'
 
-    interface MysqlReplOptions {
+    export interface MysqlReplOptions {
         serverId?: number
         startAtEnd?: boolean
         filename?: string
@@ -12,7 +12,7 @@ declare module 'mysqlrepl' {
         includeSchema?: Record<string, boolean | string[]>
         excludeSchema?: Record<string, boolean | string[]>
     }
-    enum MysqlReplEventType {
+    export enum MysqlReplEventType {
         unknown = 'unknown',
         query = 'query',
         intvar = 'intvar',
@@ -24,11 +24,43 @@ declare module 'mysqlrepl' {
         updaterows = 'updaterows',
         deleterows = 'deleterows',
     }
-    interface MysqlReplEvent {
+    export interface MysqlReplEvent {
+        tableId: number
+        timestamp: number
+        nextPosition: number
+        size: number
         dump(): void
         getEventName(): string
+        getTypeName(): string
     }
-    class MysqlRepl {
+    export interface Rotate extends MysqlReplEvent {
+        position: number
+        binlogName: string
+    }
+    export interface Xid extends MysqlReplEvent {
+        xid: number
+    }
+    export interface Query extends MysqlReplEvent {
+        slaveProxyId: number
+        executionTime: number
+        schemaLength: number
+        errorCode: number
+        statusVarsLength: number
+        statusVars: string
+        schema: string
+        query: string
+    }
+    export interface IntVar extends MysqlReplEvent {
+        type: number
+        value: number
+    }
+    export interface TableMap extends MysqlReplEvent {
+        tableMap: any[]
+        flags: number
+        schemaName: string
+        tableName: string
+    }
+    export default class MysqlRepl {
         constructor(options: ConnectionConfig)
         start(options: MysqlReplOptions): void
         stop(): void
@@ -38,5 +70,4 @@ declare module 'mysqlrepl' {
         on(eventName: 'stopped', handler: () => void): this
     }
 
-    export = MysqlRepl
 }

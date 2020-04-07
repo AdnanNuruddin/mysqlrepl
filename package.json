@@ -1,6 +1,6 @@
 {
   "name": "mysqlrepl",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "A mysql binlog listener running on Node.js",
   "main": "index.js",
   "directories": {
