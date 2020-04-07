@@ -2,18 +2,18 @@ declare module 'mysqlrepl' {
 
     import { ConnectionConfig } from 'mysql'
 
-    export enum MysqlReplEventType {
-        unknown = 'unknown',
-        query = 'query',
-        intvar = 'intvar',
-        rotate = 'rotate',
-        format = 'format',
-        xid = 'xid',
-        tablemap = 'tablemap',
-        writerows = 'writerows',
-        updaterows = 'updaterows',
-        deleterows = 'deleterows',
-    }
+    export type MysqlReplEventType =
+        'unknown' |
+        'query' |
+        'intvar' |
+        'rotate' |
+        'format' |
+        'xid' |
+        'tablemap' |
+        'writerows' |
+        'updaterows' |
+        'deleterows'
+
     export interface MysqlReplOptions {
         serverId?: number
         startAtEnd?: boolean
