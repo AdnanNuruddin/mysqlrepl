@@ -2,16 +2,6 @@ declare module 'mysqlrepl' {
 
     import { ConnectionConfig } from 'mysql'
 
-    export interface MysqlReplOptions {
-        serverId?: number
-        startAtEnd?: boolean
-        filename?: string
-        position?: number
-        includeEvents?: string[]
-        excludeEvents?: string[]
-        includeSchema?: Record<string, boolean | string[]>
-        excludeSchema?: Record<string, boolean | string[]>
-    }
     export enum MysqlReplEventType {
         unknown = 'unknown',
         query = 'query',
@@ -23,6 +13,16 @@ declare module 'mysqlrepl' {
         writerows = 'writerows',
         updaterows = 'updaterows',
         deleterows = 'deleterows',
+    }
+    export interface MysqlReplOptions {
+        serverId?: number
+        startAtEnd?: boolean
+        filename?: string
+        position?: number
+        includeEvents?: MysqlReplEventType[]
+        excludeEvents?: MysqlReplEventType[]
+        includeSchema?: Record<string, boolean | string[]>
+        excludeSchema?: Record<string, boolean | string[]>
     }
     export interface MysqlReplEvent {
         tableId: number
