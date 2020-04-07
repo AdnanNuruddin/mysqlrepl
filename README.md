@@ -1,4 +1,4 @@
-# ZongJi [![Build Status](https://travis-ci.org/adi/mysqlrepl.svg?branch=master)](https://travis-ci.org/adi/mysqlrepl)
+# MysqlRepl [![Build Status](https://travis-ci.org/adi/mysqlrepl.svg?branch=master)](https://travis-ci.org/adi/mysqlrepl)
 A MySQL binlog listener running on Node.js.
 
 This package is a pure JS implementation based on [`mysql`](https://github.com/mysqljs/mysql). It has been tested to work in MySQL 5.5, 5.6, and 5.7.

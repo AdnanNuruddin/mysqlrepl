@@ -28,7 +28,7 @@ declare module 'mysqlrepl' {
         dump(): void
         getEventName(): string
     }
-    class ZongJi {
+    class MysqlRepl {
         constructor(options: ConnectionConfig)
         start(options: MysqlReplOptions): void
         stop(): void
@@ -38,5 +38,5 @@ declare module 'mysqlrepl' {
         on(eventName: 'stopped', handler: () => void): this
     }
 
-    export = ZongJi
+    export = MysqlRepl
 }
