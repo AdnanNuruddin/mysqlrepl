@@ -60,6 +60,12 @@ declare module 'mysqlrepl' {
         schemaName: string
         tableName: string
     }
+    export interface RowsEvent extends MysqlReplEvent {
+        tableMap: any[]
+        flags: number
+        useChecksum: string
+        numberOfColumns: string
+    }
     export default class MysqlRepl {
         constructor(options: ConnectionConfig)
         start(options: MysqlReplOptions): void
