@@ -1,5 +1,5 @@
 // Client code
-const ZongJi = require('./');
+const ZongJi = require('mysqlrepl');
 
 const zongji = new ZongJi({
   host     : 'localhost',
